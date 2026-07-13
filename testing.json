@@ -1,9 +1,9 @@
 {
   "name": "HookCrashers",
   "channel": "dev",
-  "version": "5.0.31-dev",
-  "commit": "42a386cdd2856f793fdd115313272bb530ff0a91",
+  "version": "5.0.45-dev",
+  "commit": "5af7cbdbbb17136d311ed9d928bb369f08779edc",
   "asset_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers.asi",
   "dropin_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers-v5-dropin.zip",
-  "notes": "Testing build with portrait shape injection and isolated per-mod saves."
+  "notes": "See the dev release page for patch notes."
 }
