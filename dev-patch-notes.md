@@ -1,7 +1,7 @@
-HookCrashers 5.0.47-dev
+HookCrashers 5.0.48-dev
 
 Branch: v5
-Commit: ae2d2bdc5f0758961c71d5d6726f833e88cb1682
+Commit: bcf654949a9da41cc173e83749e49a6c27fff242
 
 
 ### Added
