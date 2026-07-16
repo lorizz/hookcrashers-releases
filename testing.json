@@ -1,8 +1,8 @@
 {
   "name": "HookCrashers",
   "channel": "dev",
-  "version": "5.0.54-dev",
-  "commit": "50ffb9827fa38603947381a46d98ecbd92a941da",
+  "version": "5.0.55-dev",
+  "commit": "d1c9b7a22d581b76337b311285df7572b3ca30b9",
   "asset_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers.asi",
   "dropin_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers-v5-dropin.zip",
   "notes": "See the dev release page for patch notes."
