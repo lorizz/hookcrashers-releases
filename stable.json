@@ -1,9 +1,9 @@
 {
-  "name": "HookCrashers",
-  "channel": "stable",
-  "version": "5.0.3",
-  "commit": "7e3e56a26d6a1cc172effed1ba2d840431b1448d",
-  "asset_url": "https://raw.githubusercontent.com/lorizz/hookcrashers-releases/main/channels/stable/HookCrashers.asi",
-  "dropin_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/release_5.0.3/HookCrashers-v5.0.3.zip",
-  "notes": "See the HookCrashers 5.0.3 release page for patch notes."
+    "version":  "5.0.4",
+    "name":  "HookCrashers",
+    "commit":  "ede8377",
+    "channel":  "release",
+    "notes":  "https://github.com/lorizz/hookcrashers-releases/releases/tag/release_5.0.4",
+    "dropin_url":  "https://github.com/lorizz/hookcrashers-releases/releases/download/release_5.0.4/HookCrashers-v5.0.4.zip",
+    "asset_url":  "https://github.com/lorizz/hookcrashers-releases/releases/download/release_5.0.4/HookCrashers.asi"
 }
