@@ -1,15 +1,11 @@
-HookCrashers 5.0.63-dev
+HookCrashers 5.0.64-dev
 
 Branch: v5
-Commit: 3917e50c2d45a2f25ebf216c654ad3c243399025
+Commit: 57bdb88a9005eee2547b97f3d4d7002f9be027ba
 
-
-### Added
-
-- Custom mod localization loading from `localizations.json`, with English fallback and support for all eleven game languages.
-- The ActionScript `GetLocalization("id")` native, returning a HookCrashers localization id for assignment to `ntext`.
 
 ### Fixed
 
-- Updated the custom SWF registration, string cache, dispatcher, and `ntext` lookup RVAs for the current Castle Crashers executable.
+- Isolated Painter Boss Paradise configuration per mod as `hcpbp_<modname>.dat`, preventing stale vanilla or another mod's Workshop selections from being loaded by HookCrashers.
+- Made save and PBP filename redirection atomic and rejected unexpected PBP filename operands from unsupported executable revisions.
 
