@@ -1,11 +1,16 @@
-HookCrashers 5.0.64-dev
+HookCrashers 5.0.65-dev
 
 Branch: v5
-Commit: 57bdb88a9005eee2547b97f3d4d7002f9be027ba
+Commit: 42ef18245bf47d27e3bfa32cfc784f78efeb4267
 
+
+### Added
+
+- Native Win32/x86 ASI loading from dedicated `mods/<mod>/*.asi` folders, including deterministic load order and optional `HookCrashersModInit` / `HookCrashersModShutdown` exports.
+- A packaged C++ SDK containing `HookCrashers.h` and `HookCrashers.lib`.
+- Public native-mod logging and runtime version exports.
 
 ### Fixed
 
-- Isolated Painter Boss Paradise configuration per mod as `hcpbp_<modname>.dat`, preventing stale vanilla or another mod's Workshop selections from being loaded by HookCrashers.
-- Made save and PBP filename redirection atomic and rejected unexpected PBP filename operands from unsupported executable revisions.
+- Replaced stale C++ API documentation that referenced exports and headers absent from the v5 build.
 
