@@ -1,12 +1,6 @@
-# HookCrashers 5.0.1
+HookCrashers 5.0.2
 
-
-### Added
-
-- Custom mod localization loading from `localizations.json`, with English fallback and support for all eleven game languages.
-- The ActionScript `GetLocalization("id")` native, returning a HookCrashers localization id for assignment to `ntext`.
-
-### Fixed
-
-- Updated the custom SWF registration, string cache, dispatcher, and `ntext` lookup RVAs for the current Castle Crashers executable.
-
+- Painter Boss Paradise configuration is now isolated per mod as `hcpbp_<modname>.dat`.
+- The vanilla `ccpbp_config.dat` remains untouched.
+- This prevents stale or incompatible Workshop selections from vanilla or another mod from crashing the character selection menu.
+- Save and PBP filename redirection is applied atomically and validates the supported executable references before patching.
