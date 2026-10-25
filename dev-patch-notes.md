@@ -1,21 +1,18 @@
-HookCrashers 5.0.67-dev
+HookCrashers 5.0.68-dev
 
 Branch: v5
-Commit: aebf92ab5394dd540cd0adf5c5d07048b4071f0d
+Commit: 4265bad4286037a526fc71213f44c85060d0e494
 
 
 ### Fixed
 
-- Raised the effective main game allocation budget from 576 MiB to 1024 MiB using on-demand overflow arenas, including native free routing and reset cleanup. Existing allocations retain their addresses. This targets the null-buffer allocation failure observed with Ultra graphics and during multiplayer loading.
-- Corrected the addon unlock fallback native address and validated its instructions before enabling the fallback; added numeric argument conversion and player-index checks.
-- Retained only the final successful patched SWF buffer instead of retaining intermediate copies, with synchronized ownership bookkeeping.
-
-### Added
-
-- Configurable `game_pool_mib` (default 1024; 0 disables expansion; supported budgets 576..1536 MiB), allocator compatibility checks, and growth/failure logging.
-- Offline tests against allocator routines from a user-provided executable snapshot, including actual Detours routing, 16 MiB zero-fill, budget enforcement, free/reset, and overflow concurrency. No proprietary executable snapshot or extracted fixture is included.
+- Corrected the no-Painter-DLC addon unlock fallback to call the game's native with `__stdcall` and an AL Boolean return. The previous `__cdecl` declaration removed its two arguments twice, unbalancing the stack by eight bytes during lobby script evaluation.
+- Corrected the expanded character sync receiver's roster insertion target from RVA `0x12B0E0` (inside an unrelated instruction) to the native entry at `0x2B030`, as called by the vanilla receiver. This separate defect predates the no-DLC fallback.
+- Added instruction checks for all unlock-native return paths and the roster insertion entry/return before enabling the affected hooks.
 
 ### Validation
 
-- Local Release/Win32 build, five executable compatibility checks, and native allocator/core hook integration tests passed. Ultra graphics and multiplayer gameplay have not yet been validated with this build.
+- Local Release/Win32 build and eight executable compatibility checks passed.
+- Offline tests using isolated native routines reproduced the old eight-byte stack imbalance, passed 100000 corrected unlock calls across four players, and verified existing/new roster ID insertion with an isolated insertion dependency.
+- Retains the 1 GiB game pool from 5.0.67-dev. Tester feedback confirms Ultra graphics now loads; the Blacksmith level lag spike remains under investigation. Multiplayer lobby gameplay with these fixes still needs tester verification.
 
