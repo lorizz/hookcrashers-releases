@@ -1,27 +1,24 @@
-HookCrashers 5.1.0-dev
+HookCrashers 5.1.1-dev
 
 Branch: v5
-Commit: 38b0ad0bea12a692b321f61f2de7d83f9f2a67b6
+Commit: e81f3d5d548f26c94e613372fd5bdaedd3cc8cf5
 
 
 ### Added
 
-- Expanded the C++ SDK with `GetCurrentCharacterData(slot)` for HUD/player slots 1..4: character identity, health/magic, level/XP, gold, stats, equipment, consumables and other runtime values. Numeric validity and explicit live/HUD/loading/stale states distinguish unavailable fields from zero.
-- Added bounded enumeration of ActionScript properties, arrays and nested objects, including addon fields, with sequence checks and truncation/read-fault flags. Public snapshots contain no raw VM pointers.
-- Added `RegisterUpdateCallback` / `UnregisterUpdateCallback`: a `void __stdcall` callback runs on the game thread after snapshot publication. Successful unregistration waits for active calls. Duplicate registrations are rejected and faulting callbacks are disabled.
-- Added a C++ ASI mini tutorial and buildable CharacterLevelWatch example with `void Update()`, four-player level-increase polling and baseline resets for loading or identity changes.
-- Committed the x86 import library under `sdk/lib` and added `HookCrashers-SDK-Win32.zip` to private/public release assets. CI verifies the packaged example links against the freshly built SDK.
+- Restored the original injected multiplayer selector and custom SWF artwork: Play Vanilla follows the native Play With Friends flow; Play Modded opens the injected lobby screen. Assets are embedded in the ASI.
 
-### Changed
+### Fixed
 
-- Starts the 5.1 C++ runtime API series. Release versions now come from the explicit `VERSION` file rather than the CI run number; development builds append `-dev`.
-- Retains the 1 GiB pool and multiplayer native calling-convention/roster fixes from 5.0.68-dev.
+- Expanded character synchronization now transmits the actual Classic/Fresh setting instead of always advertising Fresh. Joining clients adopt the host's mode before the roster becomes ready, using the native authority checks and mode setter. Clients cannot change the host's mode.
+- Corrected the mode setter address and its x86 stdcall calling convention, with executable signature checks before installation.
+- Updated menu integration for the supported executable, including state allocation, sprite/font ID remapping, full physical MENU length and native menu layout calls.
 
-### Validation
+### Compatibility and validation
 
-- Release/Win32 build, ten supported-executable compatibility checks, production API tests on a four-player VM model, and SDK consumer/example compilation passed locally.
-- Offline tests cover isolated actual native getters/hash/map/array routines, the ECX/XMM1 frame bridge, Detours attach/capture/detach on the native disabled-update branch, callback ordering, level-up comparison, fault isolation, concurrent reads and synchronized unregistration.
-- No game was launched. The full in-game object chain/lifecycle and achievement behavior still require tester verification; polling does not recover intermediate changes between captures or loading gaps.
+- HC character-sync protocol is now version 6. All modded peers must update and use matching addon layouts; old or malformed HC packets are rejected. A valid Classic/Fresh difference is synchronized, not rejected.
+- The restored custom lobby screen starts empty. The former demonstration lobby provider and real-lobby joining are not implemented by this restoration.
+- Offline production sender/receiver tests cover all four host/client mode combinations, host authority, malformed metadata and native fallback. Two-account Steam gameplay still requires verification.
 
 
 ## C++ ASI mini tutorial — 5.1.0-dev
