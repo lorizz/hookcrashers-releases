@@ -1,24 +1,24 @@
-HookCrashers 5.1.1-dev
+HookCrashers 5.1.2-dev
 
 Branch: v5
-Commit: e81f3d5d548f26c94e613372fd5bdaedd3cc8cf5
+Commit: 53f517b36186418c9fa6472df9cc35d3bad2a352
 
 
 ### Added
 
-- Restored the original injected multiplayer selector and custom SWF artwork: Play Vanilla follows the native Play With Friends flow; Play Modded opens the injected lobby screen. Assets are embedded in the ASI.
+- Four texture quality presets in order: Low (0), Medium (1), High (2), Ultra (3). High reuses the original localized label in all eleven languages.
+- Restored High's historical per-axis texture sizing from the pre-Painter Steam build of 31 July 2024: optional power-of-two rounding followed by independent bounds, with the historical 512 limit and native minimum. Medium retains the current aspect-preserving sizing policy.
 
-### Fixed
+### Changed
 
-- Expanded character synchronization now transmits the actual Classic/Fresh setting instead of always advertising Fresh. Joining clients adopt the host's mode before the roster becomes ready, using the native authority checks and mode setter. Clients cannot change the host's mode.
-- Corrected the mode setter address and its x86 stdcall calling convention, with executable signature checks before installation.
-- Updated menu integration for the supported executable, including state allocation, sprite/font ID remapping, full physical MENU length and native menu layout calls.
+- Moved Ultra's atlas selection, texture scaling, warning and defaults from value 2 to 3. Ultra's rendering parameters are retained. Ultra keeps the native WOW64 availability check; 32-bit Windows can select High as its maximum.
+- Migrates existing `video/tex_quality=2` configurations to Ultra (3), with a persisted schema marker so a new High selection remains High after restart. This changes the graphics setting only, not character progress or saves.
+- All graphics instruction sites and native calling conventions are validated before enabling the feature; incompatible code disables the entire feature.
 
-### Compatibility and validation
+### Validation
 
-- HC character-sync protocol is now version 6. All modded peers must update and use matching addon layouts; old or malformed HC packets are rejected. A valid Classic/Fresh difference is synchronized, not rejected.
-- The restored custom lobby screen starts empty. The former demonstration lobby provider and real-lobby joining are not implemented by this restoration.
-- Offline production sender/receiver tests cover all four host/client mode combinations, host authority, malformed metadata and native fallback. Two-account Steam gameplay still requires verification.
+- Release/Win32 build and 6,656 isolated native comparisons passed: historical High, relocated Ultra and unchanged Low/Medium. Production configuration/menu tests cover migration, four-preset round trips and native stack signatures; hook tests cover atomic signature rejection and full attach/patch/detach restoration.
+- Historical sizing is restored; this does not revert the game's newer assets or the rest of its renderer. Full visual/gameplay verification remains necessary.
 
 
 ## C++ ASI mini tutorial — 5.1.0-dev
