@@ -2,7 +2,7 @@
   "name": "HookCrashers",
   "channel": "dev",
   "version": "5.1.2-dev",
-  "commit": "53f517b36186418c9fa6472df9cc35d3bad2a352",
+  "commit": "6f2aa18cf89f45d4553b06deb7a3a65e8d11aeb7",
   "asset_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers.asi",
   "dropin_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers-v5-dropin.zip",
   "sdk_url": "https://github.com/lorizz/hookcrashers-releases/releases/download/dev/HookCrashers-SDK-Win32.zip",
