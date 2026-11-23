@@ -1,26 +1,37 @@
-HookCrashers 5.1.1
+HookCrashers 5.1.2
 
 Branch: main
-Commit: be8a71f08e4b3244f35b5ea8c243b210ef507219
+Commit: c998cda70f562eca926f0ce6468d8b3730a0feb9
 
 
-### Multiplayer and menus
+### Open source and security
 
-- Joining players now follow the host's graphics mode: a Fresh host switches clients to Fresh, and a Classic host switches clients to Classic. Expanded character synchronization preserves the game's host authority checks.
-- Includes the addon unlock fix for players without the Painter Boss DLC and the corrected native roster insertion used during lobby synchronization.
-- Restores the injected online selector and original custom SWF artwork. Play Vanilla opens the native multiplayer flow, including addon synchronization when mods are loaded. Play Modded is visibly disabled as `Play Modded - soon` while the custom lobby browser is unfinished.
-- All modded players must use a compatible HC sync protocol (version 6), matching mods and character registration order. Older HC packets are rejected.
+- HookCrashers is now open source under the GNU GPL v3.0. The full source code and history are public at `lorizz/hookcrashers`.
+- The in-game updater installs only official builds from `lorizz/hookcrashers-releases`. It checks the SHA-256 published in the channel manifest and rejects any download whose hash or origin does not match.
+- HookCrashers now checks the exact Castle Crashers build (PE timestamp `0x6A4D42BF`) before changing the game. If Steam updates the game, HookCrashers shows a "build not supported" message and leaves the game unchanged, so it cannot corrupt saves or crash on an unknown build.
+- Release builds come from the public GitHub Actions workflow, and every published binary maps to a public commit.
 
-### Modding and performance
+### Fixed
 
-- Includes the 1 GiB effective game allocation budget which resolved the reported Ultra graphics loading crashes. The reported occasional Blacksmith level lag spike remains separate.
-- Adds the C++ character snapshot API `GetCurrentCharacterData` for player slots 1..4 and game-thread Update callbacks for native ASI mods.
-- Includes the Win32 SDK, import library, ASI mini tutorial and buildable CharacterLevelWatch example.
+- Restored the 5.0.0–5.0.4 character-patch activation behavior. Starting the online menus alone no longer replaces MAIN's `f_InitSaveSystem` or changes lobby character selectors. Registered character addons and explicit Lua/C++ character-expansion installs still enable the existing expansion patches. This preserves custom MAIN initialization in installations without character expansion.
+- Crash reports now include the exact HookCrashers version and bounded register/stack memory samples. Stack labels derived only from the nearest export are marked as unverified so an unrelated API export is not mistaken for the crashing function.
+
+### Added
+
+- Four texture quality presets in order: Low (0), Medium (1), High (2), Ultra (3). High reuses the original localized label in all eleven languages.
+- Restored High's historical per-axis texture sizing from the pre-Painter Steam build of 31 July 2024: optional power-of-two rounding followed by independent bounds, with the historical 512 limit and native minimum. Medium retains the current aspect-preserving sizing policy.
+
+### Changed
+
+- Moved Ultra's atlas selection, texture scaling, warning and defaults from value 2 to 3. Ultra's rendering parameters are retained. Ultra keeps the native WOW64 availability check; 32-bit Windows can select High as its maximum.
+- Migrates existing `video/tex_quality=2` configurations to Ultra (3), with a persisted schema marker so a new High selection remains High after restart. This changes the graphics setting only, not character progress or saves.
+- All graphics instruction sites and native calling conventions are validated before enabling the feature; incompatible code disables the entire feature.
 
 ### Validation
 
-- Promoted after positive tester feedback on 5.1.1-dev. Local Release/Win32 build, thirteen supported-executable checks and offline production sender/receiver tests passed, including all four Classic/Fresh host/client combinations.
-- The character API's complete in-game player lifecycle still requires consumer validation. The custom lobby browser is not available in this release.
+- Offline production-loader regression checks passed on the stock MAIN and the tester's modified MAIN: menu-only startup preserves each file byte-for-byte, explicit zero-addon expansion and registered-addon expansion retain initializer replacement, and activation/removal/failure/retry behavior is covered. Online-menu import is stubbed in these activation tests; the tester's in-game crash still needs a reproduction check.
+- Release/Win32 build and 6,656 isolated native comparisons passed: historical High, relocated Ultra and unchanged Low/Medium. Production configuration/menu tests cover migration, four-preset round trips and native stack signatures; hook tests cover atomic signature rejection and full attach/patch/detach restoration.
+- Historical sizing is restored; this does not revert the game's newer assets or the rest of its renderer. Full visual/gameplay verification remains necessary.
 
 
 ## C++ ASI mini tutorial — 5.1.0-dev
@@ -125,3 +136,4 @@ entrypoints: []
 
 The APIs passed offline native/SDK tests. The complete in-game player chain and
 gameplay lifecycle still need tester validation in this dev release.
+
